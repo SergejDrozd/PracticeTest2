@@ -14,10 +14,10 @@ namespace Domain.Entities
         public Product(int id, string name, string description, decimal price, int categoryId, Category category, DateTime createdAt)
         {
             if (string.IsNullOrWhiteSpace(name))
-                throw new ArgumentException("Название товара не может быть пустым");
+                throw new ArgumentException("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ");
 
             if (price <= 0)
-                throw new ArgumentException("Цена должна быть больше 0");
+                throw new ArgumentException("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ 0");
 
             Id = id;
             Name = name;
@@ -31,8 +31,14 @@ namespace Domain.Entities
 
         public void UpdateAverageRating(IEnumerable<Review> reviews)
         {
-            if (reviews.Any())
-                AverageRating = reviews.Average(r => r.Rating);
+            double sum = 0;
+            int count = 0;
+            foreach (var review in reviews)
+            {
+                sum += review.Rating;
+                count++;
+            }
+            AverageRating = count > 0 ? sum / count : 0;
         }
     }
 }
